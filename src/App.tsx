@@ -13,9 +13,21 @@ function App() {
     { id: 3, nev: "Morzsi", kor: 7 }
   ]);
 
-  const allatHozzaadasa = () => {
-    let ujAllat: Allat = { id: 4, nev: "Luna", kor: 1 }
+  const [nev, setNev] = useState<string>("")
+  const [kor, setKor] = useState<string>("")
+
+  function allatHozzaadasa() {
+
+    let ujAllat: Allat = {
+      id: allatok.length + 1,
+      nev: nev,
+      kor: parseInt(kor)
+    };
+
     setAllatok([...allatok, ujAllat]);
+
+    setNev("");
+    setKor("");
   }
 
   const eletkorNovelese = (id: number) => {
@@ -41,8 +53,13 @@ function App() {
       <div className="container">
         <h1>Állatmenhely</h1>
 
-        <AllatVezerlo allatHozzaadasa={allatHozzaadasa} />
-
+        <AllatVezerlo
+          nev={nev}
+          kor={kor}
+          setNev={setNev}
+          setKor={setKor}
+          allatHozzaadasa={allatHozzaadasa}
+        />
         <AllatLista
           allatok={allatok}
           eletkorNovelese={eletkorNovelese}
